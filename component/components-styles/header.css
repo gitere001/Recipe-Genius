@@ -1,0 +1,135 @@
+:root {
+  /* Header Specific Variables */
+  --header-bg: white;
+  --header-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --menu-toggle-size: 40px;
+  --menu-toggle-hover-bg: #f3f4f6;
+   /* Menu Toggle */
+   --menutoggle-container-size: 40px;
+   --menutoggle-container-padding: 8px;
+   --menutoggle-border-radius: 8px;
+   --menutoggle-hover-bg-color: #f3f4f6;
+
+   /* Mobile Menu */
+   --mobile-menu-bg-color: #ffffff;
+   --mobile-menu-border-color: #f3f4f6;
+   --mobile-menu-text-primary: #111827;
+   --mobile-menu-text-secondary: #374151;
+   --mobile-menu-hover-bg: #f9fafb;
+   --mobile-menu-padding-x: 16px;
+   --mobile-menu-padding-y: 12px;
+   --mobile-menu-focus: #f0fdfa;
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  box-shadow: var(--header-shadow);
+  padding: 15px 50px 15px 15px;
+  background-color: var(--header-bg);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.home-header h3 {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.home-logo {
+  display: flex;
+  align-items: center;
+}
+
+.chef-hat {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  color: var(--primary-hover);
+}
+
+.dietary-nav {
+
+	margin-left: auto;
+}
+
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition-speed) ease;
+}
+
+.nav-item:hover {
+  color: var(--primary-color);
+}
+.profiles {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+	.menu-toggle {
+	  border-radius: var(--menutoggle-border-radius);
+	  padding: var(--menutoggle-container-padding);
+	  position: relative;
+	  width: 40px;
+	  height: 40px;
+	  cursor: pointer;
+	}
+
+	.menu-toggle:hover {
+	  background-color: var(--menutoggle-hover-bg-color);
+	}
+
+	.menu-icon {
+	  display: block;
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+	}
+
+
+	.menu-icon.menu {
+	  opacity: 1;
+	  transform: translate(-50%, -50%) rotate(0) scale(1);
+	}
+
+	.menu-icon.menu.hidden {
+	  opacity: 0;
+	  transform: translate(-50%, -50%) rotate(90deg) scale(0);
+	}
+
+	.menu-icon.x {
+	  opacity: 0;
+	  transform: translate(-50%, -50%) rotate(-90deg) scale(0);
+	}
+
+	.menu-icon.x.visible {
+	  opacity: 1;
+	  transform: translate(-50%, -50%) rotate(0) scale(1);
+	}
+
+	.home-header {
+	  justify-content: space-between;
+	  padding: 15px;
+	}
+  }
+
+

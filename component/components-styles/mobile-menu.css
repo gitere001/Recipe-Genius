@@ -1,0 +1,65 @@
+:root {
+  /* Menu Specific Variables */
+  --menu-bg: white;
+  --menu-border: #f3f4f6;
+  --menu-hover-bg: #f9fafb;
+  --menu-padding-x: 16px;
+  --menu-padding-y: 12px;
+}
+.mobile-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #f3f4f6;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  z-index: 10;
+  padding: 12px 16px;
+  gap: 20px;
+}
+.menu-item {
+  padding: 12px;
+}
+
+.mobile-menu.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.menu-item:hover {
+  background-color: var(--menu-hover-bg);
+  color: var(--primary-color);
+}
+.logout:hover {
+  background-color: #fef2f2;
+  color: #d94141;
+}
+
+.logout {
+  color: var(--btn-danger);
+}
+.delete-acc-btn {
+  transition: transform 0.2s ease-in-out;
+}
+.delete-acc-btn:hover {
+  transform: scale(0.98);
+
+}
+
+.menu-item hr {
+  background-color: #ccc;
+  border: none;
+  height: 0.1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

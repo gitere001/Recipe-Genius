@@ -1,0 +1,172 @@
+:root {
+  /* Form-specific variables */
+  --form-input-border-color: #ccc;
+  --form-input-focus-shadow: rgba(5, 150, 105, 0.08);
+  --form-input-height: 42px;
+  --form-input-border-radius: 5px;
+}
+
+/*======= INGREDIENTS INPUT =======*/
+.add-ingridients-container {
+  background-color: white;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.add-ingridients {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.add-ingridients input {
+  padding: 8px 14px;
+  outline: none;
+  border: 1px solid var(--form-input-border-color);
+  flex-grow: 1;
+  border-radius: var(--form-input-border-radius);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  font-size: 1rem;
+  height: var(--form-input-height);
+}
+
+.add-ingridients input:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 2px var(--form-input-focus-shadow);
+  outline: none;
+}
+
+.add-ingridients button {
+  padding: 8px;
+  outline: none;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--form-input-border-radius);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  height: var(--form-input-height);
+}
+
+/*======= INGREDIENTS LIST =======*/
+.ingridients-container {
+  margin-top: 30px;
+  max-height: 160px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ingridients-container h2 {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.clear-all {
+  color: var(--text-danger);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.ingridient-card {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.ingridient {
+  background-color: var(--bg-tag);
+  padding: 3px 10px;
+  font-size: 15px;
+  border-radius: 15px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ingridient .remove {
+  font-size: 13px;
+}
+
+.remove:hover {
+  color: var(--btn-danger);
+}
+
+/*======= RECIPE BUTTON =======*/
+.get-recipe-container {
+  position: sticky;
+  bottom: 10px;
+  text-align: center;
+  margin-top: 30px;
+  background-color: rgba(5, 150, 105, 0.1);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  transform: translateZ(0);
+}
+
+.get-recipe-container p {
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+button.get-recipe-btn {
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+  transition: background-color 0.2s ease;
+  font-weight: 600;
+  background-color: rgb(251, 133, 60);
+}
+.get-recipe-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: rgb(251, 133, 60, 0.6);
+}
+.get-recipe-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.get-recipe-container button:hover {
+  background-color: rgb(253, 170, 115);
+}
+.hidden {
+  display: none;
+}
+
+/*======= MEDIA QUERIES =======*/
+@media (max-width: 768px) {
+  .ingridients-container {
+    max-height: 110px;
+  }
+
+  .get-recipe-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 357px) {
+  .add-ingridients input {
+    max-width: 80%;
+  }
+}

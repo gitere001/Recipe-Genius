@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Genius - Turn Ingredients into Recipes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <section class="form">
+        <nav class="back-button hidden" aria-label="Back button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </nav>
+
+        <!-- Step 1: Welcome -->
+        <section class="step active" id="welcome-step" aria-labelledby="welcome-step-header">
+          <img class="recipe-image" src="images/cooking.png" alt="recipe image" />
+          <header id="welcome-step-header">
+            <h1 class="title">Recipe Genius</h1>
+          </header>
+          <p class="tagline">Turn ingredients into inspiration</p>
+          <div class="features">
+            <article class="feature" aria-label="Feature: List your available ingredients">
+              <i class="fa-solid fa-utensils"></i>
+              <p>List your available ingredients</p>
+            </article>
+            <article class="feature" aria-label="Feature: AI-powered recipe suggestions">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path
+                  d="M12 2L9 9 2 12 9 15 12 22 15 15 22 12 15 9z"
+                  fill="currentColor"
+                />
+              </svg>
+              <p>Get AI-powered recipe suggestions</p>
+            </article>
+          </div>
+          <div class="button-group">
+            <button class="primary-button" id="primaryBtn" aria-label="Get Started">Get Started</button>
+            <button class="secondary-button" id="secondaryBtn" aria-label="Log In">Log In</button>
+          </div>
+        </section>
+
+        <!-- Step 2: Name -->
+        <section class="step" id="name-step" aria-labelledby="name-step-header">
+          <header id="name-step-header" class="text-center">
+            <h2 class="subtitle">What's your name?</h2>
+            <p class="description">
+              We'll use this to personalize your experience
+            </p>
+          </header>
+          <form aria-label="Name input form">
+            <div class="input-container">
+              <i class="fa-regular fa-user left"></i>
+              <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your name"
+                aria-label="Name input"
+              />
+            </div>
+            <button class="primary-button" id="nameNextButton" disabled aria-label="Next button">
+              Next
+            </button>
+          </form>
+        </section>
+
+        <!-- Step 3: Email -->
+        <section class="step" id="email-step" aria-labelledby="email-step-header">
+          <header id="email-step-header" class="text-center">
+            <h2 class="subtitle">What's your email?</h2>
+            <p class="description">
+              This helps us keep your account secure and assists with account recovery
+            </p>
+          </header>
+          <form aria-label="Email input form">
+            <div class="input-container">
+              <i class="fa-regular fa-envelope left"></i>
+              <input
+                type="email"
+                id="emailInput"
+                placeholder="Enter your email address"
+                aria-label="Email input"
+              />
+            </div>
+            <button class="primary-button" id="emailNextButton" disabled aria-label="Next button">
+              Next
+            </button>
+          </form>
+        </section>
+
+        <!-- Step 4: OTP -->
+        <section class="step" id="otp-step" aria-labelledby="otp-step-header">
+          <header id="otp-step-header" class="text-center">
+            <h2 class="subtitle">Verify Your Email</h2>
+            <p class="description">
+              Enter the verification code sent to <strong id="userEmailDisplay"></strong>
+            </p>
+          </header>
+          <form aria-label="OTP input form">
+            <div class="input-container">
+              <i class="fa-solid fa-shield-halved left"></i>
+              <input
+                type="text"
+                id="otpInput"
+                placeholder="Enter 4-digit code"
+                maxlength="4"
+                pattern="[0-9]*"
+                inputmode="numeric"
+                aria-label="OTP input"
+              />
+            </div>
+            <p class="error-text hidden" id="otpError">Invalid verification code</p>
+            <p class="helper-text resend-text">
+              Didn't receive the code?
+              <button
+                type="button"
+                class="text-button"
+                id="resendOtpButton"
+                aria-label="Resend OTP"
+              >
+                Resend Code
+              </button>
+              <span id="countdownTimer" class="hidden">(<span id="countdownTime">30</span>s)</span>
+            </p>
+            <button class="primary-button" id="verifyOtpButton" disabled aria-label="Verify button">
+              Verify
+            </button>
+          </form>
+        </section>
+
+        <!-- Step 5: Password -->
+        <section class="step" id="password-step" aria-labelledby="password-step-header">
+          <header id="password-step-header" class="text-center">
+            <h2 class="subtitle">Create a password</h2>
+            <p class="description">
+              Make it strong to keep your account secure
+            </p>
+          </header>
+          <form aria-label="Password creation form">
+            <div class="input-container">
+              <i class="fa-solid fa-lock left"></i>
+              <input
+                type="password"
+                id="passwordInput"
+                placeholder="Enter your password"
+                aria-label="Password input"
+              />
+              <i
+                class="fa-regular fa-eye right"
+                id="passwordToggleIcon"
+                class="toggle-password"
+                aria-label="Toggle password visibility"
+              ></i>
+            </div>
+            <p class="helper-text">
+              Use at least 8 characters, including numbers and symbols
+            </p>
+            <button
+              class="primary-button"
+              id="passwordNextButton"
+              onclick="nextStep('success-step')"
+              disabled
+              aria-label="Finish button"
+            >
+              Finish
+            </button>
+          </form>
+        </section>
+
+        <!-- Step 6: Success -->
+        <section class="step" id="success-step" aria-labelledby="success-step-header">
+          <div class="icon-container">
+            <i class="lucide-chef-hat"></i>
+          </div>
+          <header id="success-step-header" class="finish">
+            <h2 class="subtitle">
+              You're all set, Chef <span id="chefName"></span>!
+            </h2>
+          </header>
+          <p class="description">
+            Time to turn your ingredients into delicious meals
+          </p>
+          <button class="primary-button" aria-label="Start cooking button">
+            Let's Get Cooking
+          </button>
+        </section>
+
+        <!-- Step 7: Login -->
+        <section class="step" id="login-step" aria-labelledby="login-step-header">
+          <header id="login-step-header" class="text-center">
+            <h2 class="subtitle">Welcome Back!</h2>
+            <p class="description">
+              Let's get you back to creating delicious recipes
+            </p>
+          </header>
+          <form id="loginForm" aria-label="Login form">
+            <div class="input-container">
+              <i class="fa-regular fa-envelope left"></i>
+              <input
+                type="email"
+                id="loginEmailInput"
+                placeholder="Enter your email"
+                aria-label="Login email input"
+              />
+            </div>
+            <div class="input-container">
+              <i class="fa-solid fa-lock left"></i>
+              <input
+                type="password"
+                id="loginPasswordInput"
+                placeholder="Enter your password"
+                aria-label="Login password input"
+              />
+              <i
+                class="fa-regular fa-eye right"
+                id="loginPasswordToggleIcon"
+                aria-label="Toggle login password visibility"
+              ></i>
+            </div>
+            <p class="helper-text forgot-password">
+              <a href="#" class="text-button" id="forgotPasswordButton" aria-label="Forgot Password link">
+                Forgot Password?
+              </a>
+            </p>
+            <button
+              class="primary-button"
+              id="loginSubmitButton"
+              disabled
+              aria-label="Log In button"
+            >
+              Log In
+            </button>
+          </form>
+        </section>
+
+        <!-- Step 8: Forgot Password -->
+        <section class="step" id="forgot-password-step" aria-labelledby="forgot-password-step-header">
+          <header id="forgot-password-step-header" class="text-center">
+            <h2 class="subtitle">Reset Password</h2>
+            <p class="description">
+              Enter your email address to receive password reset instructions
+            </p>
+          </header>
+          <form id="forgotPasswordForm" aria-label="Forgot password form">
+            <div class="input-container">
+              <i class="fa-regular fa-envelope left"></i>
+              <input
+                type="email"
+                id="resetEmailInput"
+                placeholder="Enter your email address"
+                aria-label="Reset email input"
+              />
+            </div>
+            <button class="primary-button" id="sendResetLinkButton" disabled aria-label="Send Reset Link button">
+              Send Reset Link
+            </button>
+          </form>
+          <p class="helper-text" style="text-align: center; margin-top: 1rem">
+            Remember your password?
+            <a href="#" class="text-button" id="backToLoginButton" aria-label="Back to Login link">
+              Back to Login
+            </a>
+          </p>
+        </section>
+
+        <!-- Step 9: Reset Success -->
+        <section class="step" id="reset-success-step" aria-labelledby="reset-success-step-header">
+          <div class="icon-container">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <header id="reset-success-step-header" class="finish">
+            <h2 class="subtitle">Check Your Email</h2>
+          </header>
+          <p class="description">
+            We've sent password reset instructions to your email address. Please
+            check your inbox and follow the link to reset your password.
+          </p>
+          <button class="primary-button" id="backToWelcomeButton" aria-label="Back to Welcome button">
+            Back to Welcome
+          </button>
+        </section>
+      </section>
+    </main>
+
+    <script src="login.js"></script>
+  </body>
+</html>

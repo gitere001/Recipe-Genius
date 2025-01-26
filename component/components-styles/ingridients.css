@@ -1,0 +1,42 @@
+:root {
+	/* Ingredients Form Specific Variables */
+	--ingredients-bg: white;
+	--ingredients-input-border: #ccc;
+	--ingredients-tag-bg: #f3f4f6;
+  }
+
+  .add-ingridients-container {
+	background-color: var(--ingredients-bg);
+	width: 100%;
+	padding: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+	border-radius: var(--border-radius);
+  }
+
+  .add-ingridients {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+  }
+
+  .add-ingridients input {
+	padding: 8px 14px;
+	outline: none;
+	border: 1px solid var(--ingredients-input-border);
+	flex-grow: 1;
+	border-radius: var(--border-radius);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	font-size: 1rem;
+	height: 42px;
+  }
+
+  .ingridient {
+	background-color: var(--ingredients-tag-bg);
+	padding: 3px 10px;
+	font-size: 15px;
+	border-radius: 15px;
+	color: var(--text-secondary);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+  }

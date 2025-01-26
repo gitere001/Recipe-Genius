@@ -1,0 +1,108 @@
+.animation-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  margin-top: 20vh;
+}
+
+.animation-container {
+  position: relative;
+  width: 12rem;
+  height: 12rem;
+}
+
+.rotating-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: opacity 500ms ease;
+}
+
+.progress-ring-bg {
+  position: absolute;
+  inset: 0;
+  border: 4px solid rgb(255, 237, 213);
+  border-radius: 50%;
+}
+
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  border: 4px solid rgb(220, 118, 51);
+  border-radius: 50%;
+}
+.cancel-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(101, 67, 33);
+  background-color: rgba(101, 67, 33, 0.15);
+  border: 1px solid rgb(101, 67, 33);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.cancel-button:hover {
+  background-color: rgb(101, 67, 33);
+  color: white;
+}
+
+.bubble-container {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -2rem;
+  height: 4rem;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: 0;
+  background-color: rgb(112, 128, 144);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-40px) scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-80px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+.animation-text-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.animation-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: rgb(220, 118, 51);
+  margin: 0;
+}
+
+.animation-subtitle {
+  font-size: 0.875rem;
+  color: rgb(245, 158, 11);
+  margin: 0.5rem 0 0;
+}
+.hidden {
+  display: none;
+}

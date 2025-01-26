@@ -1,0 +1,27 @@
+.feed-back {
+	position: absolute;
+	border: none;
+	z-index: 1001;
+	top: 20px;
+	left: 50%;
+	transform: translate(-50%);
+	width: max-content;
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 18px;
+
+
+}
+.success-feedback {
+	background-color: green;
+	color: white;
+}
+.error-feedback {
+	background-color: red;
+	color: white;
+  }
+
+  .feed-back.show {
+	opacity: 1;
+	visibility: visible;
+  }
