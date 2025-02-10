@@ -1,0 +1,206 @@
+/* Global Styles */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f7f9fc;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 97vh;
+  overflow-y: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 480px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.input-container {
+  /* position: relative; */
+  margin-bottom: 1.5rem;
+
+  width: 100%;
+  display: flex;
+}
+
+input {
+  flex-grow: 1;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #009688;
+  outline: none;
+}
+
+/* Shared Feedback Styles */
+.feedback {
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Success Feedback */
+.success-message {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+/* Error Feedback */
+.error-message {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.button {
+  height: 40px;
+  width: 100%;
+  font-size: 1.1rem;
+  color: #fff;
+  background-color: #009688;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.button:hover {
+  background-color: #00796b;
+}
+
+.button:disabled {
+  background-color: #b2dfdb;
+  cursor: not-allowed;
+}
+
+.back-to-login {
+  display: block;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #00796b;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+}
+
+.back-to-login:hover {
+  color: #004d40;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modals */
+.overly {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease;
+  z-index: 999;
+}
+/* Modal Inactive State */
+.modal {
+  position: fixed;
+  opacity: 0;
+  z-index: 0;
+  top: -100%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  transition: opacity 0.4s ease, transform 0.4s ease-in-out;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Modal Active State (when .show is added) */
+.modal.show {
+  opacity: 1;
+  top: 50%; /* Move modal to center */
+  z-index: 1000; /* Bring modal to the front */
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+#errorModal .modal-content {
+  color: red;
+}
+#errorModal button {
+  background-color: red;
+  color: white;
+}
+.close-btn {
+  background-color: #009688;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.close-btn:hover {
+  background-color: #00796b;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Hidden class for elements */
+.hidden {
+  display: none;
+}

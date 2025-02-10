@@ -1,0 +1,283 @@
+:root {
+  /* Modal Specific Variables */
+  --modal-bg: white;
+  --modal-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --modal-border-radius: 10px;
+  --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+}
+
+.menu-modal {
+  position: fixed;
+  top: 20%;
+  background-color: var(--modal-bg);
+  border-radius: var(--modal-border-radius);
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: var(--modal-shadow);
+  padding: 20px;
+  color: var(--text-secondary);
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.menu-modal.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+.menu-modal h3 {
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.otp-verification {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.back-button {
+  position: absolute;
+}
+.menu-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+.menu-modal label {
+  display: block;
+  margin-bottom: 3px;
+}
+.menu-modal input {
+  border: 1px solid #ccc;
+  padding: 10px 13px;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #374151;
+}
+
+
+.menu-modal-btn {
+  padding: 10px 15px;
+  border-radius: var(--border-radius);
+  border: none;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  width: 100%;
+}
+.menu-modal-btn:hover {
+  transform: scale(0.98);
+}
+.menu-modal-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  /* You can add more styling as needed */
+}
+.back-icon {
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s ease-in-out;
+
+}
+.back-icon:hover {
+  color: #1e293b;
+  background-color: #f1f5f9;
+  transform: translateX(-2px);
+}
+
+.back-icon:active {
+  transform: translateX(-2px) scale(0.95);
+}
+
+.menu-modal-myaccount input[type="email"] {
+  margin-bottom: 30px;
+}
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  gap: 50px;
+  margin-bottom: 30px;
+}
+.stats .saved-recipes,
+.stats .favourite-recipes {
+  display: flex;
+  flex-direction: column;
+}
+.stats-number {
+  display: flex;
+  /* align-items: center; */
+  gap: 8px;
+  color: var(--primary-color);
+}
+.stats-number .total-saved,
+.total-favorites {
+  font-weight: 800;
+  font-size: 18px;
+}
+.menu-modal-cross {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: padding 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+.menu-modal-cross:hover {
+  padding: 3px;
+  background-color: var(--menutoggle-hover-bg-color);
+}
+.menu-modal-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fef2f2;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  color: var(--btn-danger);
+  align-self: center;
+}
+.dietary-preferences {
+  top: 13%;
+  overflow-y: auto;
+  max-height: 500px;
+  min-height: 550px;
+
+
+}
+
+.dietary-allergy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+.dietary-allergy form {
+  max-height: 140px;
+  overflow-y: auto;
+}
+.dietary-allergy form h4 {
+  margin-bottom: 5px;
+}
+.dietary-allergy form:last-child {
+
+  max-height: 200px;
+
+}
+
+.dietary-choice {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.dietary-choice input {
+  border: 1px solid;
+  padding: 0;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+.save-changes {
+  position: absolute;
+  bottom: 10px;
+  width: 85%;
+
+}
+
+.delete-account-description {
+  margin-bottom: 15px;
+}
+.delete-account span {
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 15px;
+}
+.delete-account span::before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--text-primary);
+}
+.delete-account-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+.delete-account-buttons button:first-child {
+  border: 1px solid #ccc;
+  color: var(--text-primary);
+  background-color: white;
+}
+.delete-account-buttons button:last-child {
+  background-color: var(--btn-danger);
+}
+.delete-acc-btn {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--modal-overlay-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+@media (min-width: 768px) {
+  .dietary-allergy {
+    flex-direction: row;
+
+  }
+
+  .dietary-preferences {
+    min-height: 420px;
+
+    max-width: 700px;
+    max-height: 450px;
+
+  }
+
+  .dietary-allergy form {
+
+    max-height: 400px;
+  }
+  .dietary-allergy form:last-child {
+    max-height: 400px;
+
+  }
+  .save-changes {
+    position: static;
+    width: 90%;
+  }
+}

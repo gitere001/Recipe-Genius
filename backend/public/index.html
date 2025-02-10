@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Reset</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="overly" class="overly hidden"></div>
+    <div class="container">
+      <h1>Password Reset</h1>
+      <p class="subtitle">Enter a new password to reset your account.</p>
+
+      <!-- Reset form -->
+      <form id="resetForm">
+        <div class="input-container">
+          <input
+          minlength="8"
+            type="password"
+            id="newPassword"
+            placeholder="New Password"
+            required
+            autofocus
+          />
+        </div>
+
+        <div class="input-container">
+          <input
+          minlength="8"
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            required
+          />
+        </div>
+
+        <button type="submit" id="submitBtn" class="button">
+          Reset Password
+          <div id="loadingSpinner" class="spinner hidden"></div>
+        </button>
+      </form>
+
+      <!-- Back to login link -->
+      <a href="/login" class="back-to-login">Back to login</a>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <p>
+          Your password has been successfully reset. You can now log in with
+          your new password.
+        </p>
+        <button class="close-btn" id="closeSuccessModal">Back to Login</button>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+      <div class="modal-content">
+        <p>Oops, something happened. Please try again.</p>
+        <button class="close-btn" id="closeErrorModal">Okay</button>
+      </div>
+    </div>
+    <script src="/script.js"></script>
+  </body>
+</html>

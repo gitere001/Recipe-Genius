@@ -1,0 +1,252 @@
+[
+	{
+	  "id": 1,
+	  "title": "Basic Crepes",
+	  "prepTime": "10 minutes",
+	  "cookTime": "20 minutes",
+	  "servings": 6,
+	  "ingredients": [
+		"1 1/2 cups (375 ml) milk",
+		"1 1/2 cups (190 g) wheat flour",
+		"2 tbsp oil + more for pan",
+		"1/2 tsp salt"
+	  ],
+	  "instructions": [
+		"In a large bowl, whisk together milk, flour, oil, and salt until smooth; let batter rest for 30 minutes",
+		"Heat a lightly oiled 8-inch skillet over medium-high heat",
+		"Pour 3 tbsp batter into hot skillet. Tilt the pan with a circular motion to spread the batter evenly",
+		"Cook until the edges start to lift and brown lightly, about 2 minutes",
+		"Flip crepe over and cook for an additional 1-2 minutes",
+		"Repeat the process with the remaining batter",
+		"Fill crepes with your favorite savory or sweet filling and serve warm"
+	  ],
+	  "message": "Enjoy these versatile and delightful crepes – a delicious and globally beloved treat!",
+	  "isFavorite": false
+	},
+	{
+	  "id": 2,
+	  "title": "Quick Vegetable Stir-Fry",
+	  "prepTime": "15 minutes",
+	  "cookTime": "10 minutes",
+	  "servings": 4,
+	  "ingredients": [
+		"2 cups mixed vegetables",
+		"2 tbsp soy sauce",
+		"1 tbsp sesame oil",
+		"2 cloves garlic, minced"
+	  ],
+	  "instructions": [
+		"Heat oil in a large wok over medium-high heat",
+		"Add garlic and stir-fry for 30 seconds",
+		"Add vegetables and cook until crisp-tender",
+		"Add soy sauce and toss to combine",
+		"Serve hot over rice"
+	  ],
+	  "message": "A healthy and quick weeknight dinner option!",
+	  "isFavorite": true
+	},
+	{
+	  "id": 3,
+	  "title": "Classic Spaghetti Carbonara",
+	  "prepTime": "10 minutes",
+	  "cookTime": "15 minutes",
+	  "servings": 4,
+	  "ingredients": [
+		"400g spaghetti",
+		"150g pancetta, diced",
+		"2 large eggs",
+		"1 cup grated Parmesan cheese",
+		"2 cloves garlic, minced",
+		"Salt and black pepper to taste"
+	  ],
+	  "instructions": [
+		"Cook spaghetti according to package instructions; reserve 1 cup of pasta water",
+		"In a pan, cook pancetta until crispy; add garlic and cook for 1 minute",
+		"In a bowl, whisk eggs and Parmesan cheese",
+		"Add cooked spaghetti to the pan and toss to combine",
+		"Remove from heat and quickly stir in the egg mixture, adding pasta water as needed to create a creamy sauce",
+		"Season with salt and pepper, and serve immediately"
+	  ],
+	  "message": "A creamy and indulgent Italian classic!",
+	  "isFavorite": true
+	},
+	{
+	  "id": 4,
+	  "title": "Chicken Tikka Masala",
+	  "prepTime": "20 minutes",
+	  "cookTime": "30 minutes",
+	  "servings": 4,
+	  "ingredients": [
+		"500g chicken breast, cut into pieces",
+		"1 cup plain yogurt",
+		"2 tbsp tikka masala paste",
+		"1 onion, finely chopped",
+		"2 cloves garlic, minced",
+		"1 cup tomato puree",
+		"1/2 cup heavy cream",
+		"Salt and pepper to taste"
+	  ],
+	  "instructions": [
+		"Marinate chicken in yogurt and tikka masala paste for 15 minutes",
+		"In a pan, sauté onion and garlic until softened",
+		"Add marinated chicken and cook until browned",
+		"Stir in tomato puree and simmer for 15 minutes",
+		"Add heavy cream and simmer for another 5 minutes",
+		"Season with salt and pepper, and serve with rice or naan"
+	  ],
+	  "message": "A flavorful and aromatic Indian dish!",
+	  "isFavorite": false
+	},
+	{
+	  "id": 5,
+	  "title": "Beef Tacos",
+	  "prepTime": "15 minutes",
+	  "cookTime": "20 minutes",
+	  "servings": 4,
+	  "ingredients": [
+		"500g ground beef",
+		"1 packet taco seasoning",
+		"8 small tortillas",
+		"1 cup shredded lettuce",
+		"1 cup diced tomatoes",
+		"1/2 cup shredded cheese",
+		"1/4 cup sour cream"
+	  ],
+	  "instructions": [
+		"Cook ground beef in a pan until browned; drain excess fat",
+		"Add taco seasoning and water as per packet instructions; simmer for 5 minutes",
+		"Warm tortillas in a dry pan or microwave",
+		"Fill tortillas with beef, lettuce, tomatoes, cheese, and sour cream",
+		"Serve immediately with your favorite salsa"
+	  ],
+	  "message": "A quick and delicious Mexican favorite!",
+	  "isFavorite": true
+	},
+	{
+	  "id": 6,
+	  "title": "Vegetable Lasagna",
+	  "prepTime": "25 minutes",
+	  "cookTime": "45 minutes",
+	  "servings": 6,
+	  "ingredients": [
+		"9 lasagna sheets",
+		"2 cups marinara sauce",
+		"1 cup ricotta cheese",
+		"1 cup shredded mozzarella",
+		"1 cup spinach, chopped",
+		"1 cup zucchini, sliced",
+		"1/2 cup grated Parmesan"
+	  ],
+	  "instructions": [
+		"Preheat oven to 375°F (190°C)",
+		"Layer lasagna sheets, marinara sauce, ricotta, spinach, zucchini, and mozzarella in a baking dish",
+		"Repeat layers and top with Parmesan cheese",
+		"Bake for 45 minutes or until bubbly and golden",
+		"Let cool for 10 minutes before serving"
+	  ],
+	  "message": "A hearty and comforting vegetarian dish!",
+	  "isFavorite": false
+	},
+	{
+	  "id": 7,
+	  "title": "Pancakes with Maple Syrup",
+	  "prepTime": "10 minutes",
+	  "cookTime": "15 minutes",
+	  "servings": 4,
+	  "ingredients": [
+		"1 1/2 cups all-purpose flour",
+		"3 1/2 tsp baking powder",
+		"1 tsp salt",
+		"1 tbsp sugar",
+		"1 1/4 cups milk",
+		"1 egg",
+		"3 tbsp melted butter",
+		"Maple syrup for serving"
+	  ],
+	  "instructions": [
+		"In a bowl, mix flour, baking powder, salt, and sugar",
+		"Add milk, egg, and melted butter; whisk until smooth",
+		"Heat a lightly oiled griddle over medium heat",
+		"Pour 1/4 cup batter for each pancake; cook until bubbles form on the surface",
+		"Flip and cook until golden brown",
+		"Serve warm with maple syrup"
+	  ],
+	  "message": "A classic breakfast treat for the whole family!",
+	  "isFavorite": true
+	},
+	{
+	  "id": 8,
+	  "title": "Grilled Salmon with Lemon Butter",
+	  "prepTime": "10 minutes",
+	  "cookTime": "15 minutes",
+	  "servings": 2,
+	  "ingredients": [
+		"2 salmon fillets",
+		"2 tbsp olive oil",
+		"Salt and pepper to taste",
+		"2 tbsp butter",
+		"1 lemon, sliced",
+		"Fresh dill for garnish"
+	  ],
+	  "instructions": [
+		"Preheat grill to medium-high heat",
+		"Brush salmon with olive oil and season with salt and pepper",
+		"Grill salmon for 5-7 minutes per side, or until cooked through",
+		"In a small pan, melt butter and add lemon slices",
+		"Drizzle lemon butter over grilled salmon and garnish with dill",
+		"Serve immediately"
+	  ],
+	  "message": "A light and flavorful seafood dish!",
+	  "isFavorite": false
+	},
+	{
+	  "id": 9,
+	  "title": "Chocolate Chip Cookies",
+	  "prepTime": "15 minutes",
+	  "cookTime": "10 minutes",
+	  "servings": 24,
+	  "ingredients": [
+		"2 1/4 cups all-purpose flour",
+		"1/2 tsp baking soda",
+		"1 cup unsalted butter, softened",
+		"1/2 cup granulated sugar",
+		"1 cup brown sugar",
+		"1 tsp vanilla extract",
+		"2 large eggs",
+		"2 cups chocolate chips"
+	  ],
+	  "instructions": [
+		"Preheat oven to 350°F (175°C)",
+		"In a bowl, mix flour and baking soda",
+		"In another bowl, cream butter, sugars, and vanilla; beat in eggs",
+		"Gradually add flour mixture and stir in chocolate chips",
+		"Drop spoonfuls of dough onto a baking sheet",
+		"Bake for 10 minutes or until edges are golden",
+		"Let cool before serving"
+	  ],
+	  "message": "Soft, chewy, and loaded with chocolate chips!",
+	  "isFavorite": true
+	},
+	{
+	  "id": 10,
+	  "title": "Mango Smoothie",
+	  "prepTime": "5 minutes",
+	  "cookTime": "0 minutes",
+	  "servings": 2,
+	  "ingredients": [
+		"2 ripe mangoes, peeled and diced",
+		"1 cup yogurt",
+		"1/2 cup milk",
+		"1 tbsp honey",
+		"Ice cubes (optional)"
+	  ],
+	  "instructions": [
+		"Add mangoes, yogurt, milk, and honey to a blender",
+		"Blend until smooth",
+		"Add ice cubes if desired and blend again",
+		"Pour into glasses and serve immediately"
+	  ],
+	  "message": "A refreshing and tropical drink for any time of the day!",
+	  "isFavorite": false
+	}
+  ]
