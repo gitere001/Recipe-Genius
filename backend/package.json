@@ -23,6 +23,7 @@
     "mongoose": "^8.9.6",
     "nodemon": "^3.1.9",
     "openai": "^4.83.0",
-    "postmark": "^4.0.5"
+    "postmark": "^4.0.5",
+    "redis": "^4.7.0"
   }
 }

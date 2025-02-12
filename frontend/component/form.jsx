@@ -2,6 +2,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { useWindowWidth } from "./responsive";
 import "./components-styles/form.css";
 import PropTypes from "prop-types";
+import { API_URL } from "../config";
 
 export default function AddIngriForm({
   showAnimation,
@@ -11,44 +12,49 @@ export default function AddIngriForm({
   setIngridients,
   setDisplayRecipe,
   setRecommendedRecipe,
-  recommendedRecipe,
+  userProfile,
 }) {
   const windowWidth = useWindowWidth();
   const isMobile = windowWidth <= 768;
 
+
   async function getRecipe() {
     handleShowAnimation();
+    const preferencesData = {
+      dietPreferences: userProfile.dietaryPreferences,
+      allergyList: userProfile.allergies,
+    };
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/generate-recipe",
+        `${API_URL}/api/generate-recipe`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify({ ingredients: ingridients }),
+          body: JSON.stringify({
+            ingredients: ingridients,
+            preferences: preferencesData,
+          }),
         }
       );
 
       const data = await response.json();
 
-      // Check for HTTP errors first
       if (!response.ok) {
         throw new Error(
           data.message || `HTTP error! status: ${response.status}`
         );
       }
 
-      // Validate response structure
       if (!data.success || !data.data) {
         throw new Error("Invalid response format from server");
       }
 
       const recipe = data.data;
 
-      // Validate required recipe fields
       const requiredFields = [
         "title",
         "prepTime",
@@ -66,7 +72,6 @@ export default function AddIngriForm({
         );
       }
 
-      // Update state only after all validations pass
       setRecommendedRecipe({
         title: recipe.title,
         prepTime: recipe.prepTime,
@@ -79,12 +84,11 @@ export default function AddIngriForm({
       setDisplayRecipe(true);
     } catch (error) {
       console.error("Recipe generation failed:", error);
-      // Consider using a toast notification instead of alert
-      // setError(error.message);  // If you have error state
     } finally {
-      SetShowAnimation(false); // Always ensure animation is turned off
+      SetShowAnimation(false);
     }
   }
+
   const ingridientElements = ingridients.map((ingridient, index) => {
     return (
       <span className="ingridient" key={index}>
@@ -174,6 +178,14 @@ export default function AddIngriForm({
 AddIngriForm.propTypes = {
   showAnimation: PropTypes.bool.isRequired,
   handleShowAnimation: PropTypes.func.isRequired,
+  SetShowAnimation: PropTypes.func.isRequired,
   ingridients: PropTypes.arrayOf(PropTypes.string).isRequired,
   setIngridients: PropTypes.func.isRequired,
+  setDisplayRecipe: PropTypes.func.isRequired,
+  setRecommendedRecipe: PropTypes.func.isRequired,
+  recommendedRecipe: PropTypes.object.isRequired,
+  userProfile: PropTypes.shape({
+    dietaryPreferences: PropTypes.arrayOf(PropTypes.string),
+    allergies: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
 };

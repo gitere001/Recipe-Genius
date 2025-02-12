@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { API_URL } from "../../config";
 
 export default function LoginForgetPassword({
   activeLoginModal,
@@ -38,22 +39,19 @@ export default function LoginForgetPassword({
     e.preventDefault();
     setSubmiting(true);
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/send-reset-link",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: loginData.email }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/send-reset-link`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: loginData.email }),
+      });
 
       const data = await response.json();
 
       if (data.success) {
         setSubmiting(false);
-        navigateResetPassword()
+        navigateResetPassword();
       } else {
         handleErrorFeedback(data.message);
       }

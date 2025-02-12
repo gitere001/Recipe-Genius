@@ -6,12 +6,8 @@ import "./components-styles/modal.css";
 import FeedBack from "./feedback";
 import { useState, useEffect, useRef } from "react";
 import otp from "./useOtp";
-// import OtpConfirmationModal from "./navigationItemsComponents/OtpConfirmationModal";
-// import DietaryPreferencesModal from "./navigationItemsComponents/DietaryPreferencesModal";
-// import MyAccountModal from "./navigationItemsComponents/MyAccountModal";
-// import ChangePasswordModal from "./navigationItemsComponents/ChangePasswordModal";
-// import DeleteAccountModal from "./navigationItemsComponents/DeleteAccountModal";
-// import LogoutModal from "./navigationItemsComponents/LogoutModal";
+import { API_URL } from "../config";
+
 import MyrecipesModal from "./navigationItemsComponents/MyrecipesModal";
 
 export default function Modal({
@@ -33,8 +29,7 @@ export default function Modal({
   userProfile,
   setUserProfile,
   recipes,
-  setRecipes
-
+  setRecipes,
 }) {
   /*otp handling section*/
   const {
@@ -85,7 +80,7 @@ export default function Modal({
   async function handleLogout(e) {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/logout", {
+      const response = await fetch(`${API_URL}/api/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -111,7 +106,7 @@ export default function Modal({
     e.preventDefault();
     setSubmiting(true);
     try {
-      const response = await fetch("http://localhost:5000/api/delete-account", {
+      const response = await fetch(`${API_URL}/api/delete-account`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -207,7 +202,7 @@ export default function Modal({
     }, 2000);
   }
 
-  function handleDietaryUpdate(e) {
+  async function handleDietaryUpdate(e) {
     e.preventDefault();
     const dietaryPreferencesData = [];
     const allergiesData = [];
@@ -218,24 +213,55 @@ export default function Modal({
       dietaryPreferencesData.push(checkbox.value);
     });
 
+
     const allergies = document.querySelectorAll(
       'input[name="allergy"]:checked'
     );
     allergies.forEach((checkbox) => {
       allergiesData.push(checkbox.value);
     });
+
     setSubmiting(true);
-    setTimeout(() => {
-      (async () => {
-        const response = await sendUpdateDietaryPreference(); // Call the async password update request
-        if (response.success) {
-          handleSuccessFeedback(response.message, e);
-        } else {
-          handleErrorFeedback(response.message);
-        }
-        setSubmiting(false);
-      })();
-    }, 2000);
+
+    try {
+      const response = await fetch(`${API_URL}/api/update-dietary`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json", // Add this header
+        },
+        body: JSON.stringify({
+          dietaryPreferences: dietaryPreferencesData,
+          allergies: allergiesData,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setHasFeedback(true);
+        setFeedbackMessage(data.message);
+        setFeedbackSuccessful(true);
+        setTimeout(() => {
+          setHasFeedback(false);
+          setUserProfile((prev) => ({
+            ...prev,
+            dietaryPreferences: dietaryPreferencesData,
+            allergies: allergiesData,
+          }));
+          setFeedbackMessage("");
+          setFeedbackSuccessful(false);
+          handleCloseModal(e);
+        }, 2000);
+      } else {
+        console.error("Failed to update prefereces:", data.message);
+        handleErrorFeedback(data.message);
+      }
+    } catch (error) {
+      console.error("Error during deletion:", error);
+      handleErrorFeedback("Internal Server Error");
+    } finally {
+      setSubmiting(false);
+    }
   }
   async function handleUpdatePassword(e) {
     e.preventDefault();
@@ -261,7 +287,7 @@ export default function Modal({
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/change-password",
+        `${API_URL}/api/change-password`,
         {
           method: "POST",
           headers: {
@@ -329,7 +355,7 @@ export default function Modal({
       if (emailChanged) payload.email = localDetails.email;
 
       // Send the request to the backend
-      const response = await fetch("http://localhost:5000/api/update-profile", {
+      const response = await fetch(`${API_URL}/api/update-profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -382,30 +408,14 @@ export default function Modal({
         <div className={`modal-overlay ${showOverlay ? "show" : ""}`}></div>,
         document.body
       )}
-      {/* OTP Confirmation Modal
-      {activeModal === "otpConfirmation" && (
-       <OtpConfirmationModal
-       handleCloseModal={handleCloseModal}
-       feedbackMessage={feedbackMessage}
-       feedbackSuccessful={feedbackSuccessful}
-       hasFeedback={hasFeedback}
-       submiting={submiting}
-       localDetails={localDetails}
-       setSubmiting={setSubmiting}
-       setActiveModal={setActiveModal}
-       handleOtpInput={handleOtpInput}  // ✅ Added
-       otpValue={otpValue}  // ✅ Added
-       handleResendOtp={handleResendOtp}  // ✅ Added
-     />
 
-      )} */}
-
-      {activeModal === "myrecipes" &&
-       <MyrecipesModal
-       recipes={recipes}
-       setActiveModal={setActiveModal}
-       setRecipes={setRecipes}
-        />}
+      {activeModal === "myrecipes" && (
+        <MyrecipesModal
+          recipes={recipes}
+          setActiveModal={setActiveModal}
+          setRecipes={setRecipes}
+        />
+      )}
 
       <div
         className={`menu-modal otp-modal ${
@@ -520,7 +530,10 @@ export default function Modal({
           Dietary Preferences & Allergies
           <X className="menu-modal-cross" onClick={handleCloseModal} />
         </h3>
-        <Ingredients />
+        <Ingredients
+        userAllergies={userProfile.allergies}
+        userDietaryPreferences={userProfile.dietaryPreferences}
+        />
         <button
           onClick={handleDietaryUpdate}
           className="save-changes menu-modal-btn"
@@ -726,6 +739,17 @@ export default function Modal({
     </>
   );
 }
+const recipePropType = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  prepTime: PropTypes.string.isRequired,
+  cookTime: PropTypes.string.isRequired,
+  servings: PropTypes.number.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  message: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+});
 
 Modal.propTypes = {
   activeModal: PropTypes.oneOf([
@@ -757,6 +781,11 @@ Modal.propTypes = {
   userProfile: PropTypes.shape({
     name: PropTypes.string,
     email: PropTypes.string,
+    dietaryPreferences: PropTypes.arrayOf(PropTypes.string),
+    allergies: PropTypes.arrayOf(PropTypes.string),
   }),
+
   setUserProfile: PropTypes.func.isRequired,
+  recipes: PropTypes.arrayOf(recipePropType).isRequired,
+  setRecipes: PropTypes.func.isRequired,
 };

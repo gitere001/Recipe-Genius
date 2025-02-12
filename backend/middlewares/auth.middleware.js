@@ -5,15 +5,14 @@ import { generateTokens } from "../utils/jwt.js";
 const authenticateUser = async (req, res, next) => {
   try {
     const { accessToken, refreshToken } = req.cookies;
-    console.log("accessToken", accessToken);
-    console.log("refleshToken", refreshToken);
+
 
     // Check if the access token exists and is valid
     if (accessToken) {
-      console.log("access token present");
+
       try {
         const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-        console.log("decoded", decoded);
+       
         req.user = { userId: decoded.userId, email: decoded.email };
         return next();
       } catch (error) {

@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import { useState, useEffect } from "react";
 import LoginModal from "./login";
 import { createPortal } from "react-dom";
+import { API_URL } from "../config";
 export default function App() {
   const [activeModal, setActiveModal] = useState(null);
 
@@ -17,24 +18,22 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [userProfile, setUserProfile] = useState({});
   const [recipes, setRecipes] = useState([]);
+  
 
   useEffect(() => {
     async function checkAuthStatus() {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/refresh-token",
-          {
-            method: "POST",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${API_URL}/api/refresh-token`, {
+          method: "POST",
+          credentials: "include",
+        });
 
         const data = await response.json();
 
         if (data.success) {
           setIsAuthenticated(true);
           fetchUserProfile();
-          fetchRecipes()
+          fetchRecipes();
         } else {
           setIsAuthenticated(false);
         }
@@ -47,10 +46,9 @@ export default function App() {
     checkAuthStatus();
   }, []);
 
-
   async function fetchUserProfile() {
     try {
-      const response = await fetch("http://localhost:5000/api/user-profile", {
+      const response = await fetch(`${API_URL}/api/user-profile`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // Send authentication token
@@ -69,25 +67,23 @@ export default function App() {
   }
   async function fetchRecipes() {
     try {
-      const response = await fetch("http://localhost:5000/recipes.json")
-      const data = await response.json()
-      if (Array.isArray(data)) {
-        setRecipes(data);
-        console.log("data is a valid array of length: ", data.length);
+      const response = await fetch(`${API_URL}/api/fetch-recipes`, {
+        method: "GET",
+        credentials: "include",
+      });
 
+      const data = await response.json();
+
+      if (response.ok && Array.isArray(data.recipes)) {
+        setRecipes(data.recipes);
       } else {
-        setRecipes([])
-
-        console.error("data is not an array", data);
+        setRecipes([]);
+        console.error("Invalid response:", data);
       }
-
     } catch (error) {
-      setRecipes([])
-
-      console.log("error while fetching recipes", error);
-
+      setRecipes([]);
+      console.error("Error fetching recipes:", error);
     }
-
   }
 
   return (
@@ -113,6 +109,7 @@ export default function App() {
             setActiveLoginModal={setActiveLoginModal}
             fetchUserProfile={fetchUserProfile} // Pass fetchUserProfile
             setIsAuthenticated={setIsAuthenticated} // Pass setIsAuthenticated
+            fetchRecipes={fetchRecipes}
           />
         </div>,
         document.body
@@ -143,11 +140,9 @@ export default function App() {
         setUserProfile={setUserProfile}
         recipes={recipes}
         setRecipes={setRecipes}
-
-
       />
 
-      <Main />
+      <Main setRecipes={setRecipes} userProfile={userProfile} />
     </>
   );
 }

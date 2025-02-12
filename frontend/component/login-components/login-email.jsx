@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { API_URL } from "../../config";
 export default function LoginEmail({
   activeLoginModal,
   setActiveLoginModal,
@@ -18,7 +19,7 @@ export default function LoginEmail({
     e.preventDefault();
     setSubmiting(true);
     try {
-      const response = await fetch("http://localhost:5000/api/userexists", {
+      const response = await fetch(`${API_URL}/api/userexists`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,8 @@
 import OpenAI from "openai";
 import dotenv from "dotenv";
-import json5 from "json5"; // Install with: npm install json5
+import json5 from "json5";
+import Recipe from "../models/recipe.model.js";
+import User from "../models/user.model.js";
 
 dotenv.config();
 
@@ -70,42 +72,56 @@ STRICT FORMAT RULES:
 
 export const generateRecipe = async (req, res) => {
   try {
-    const { ingredients } = req.body;
-
-    // Validate input
-    if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
+    const { ingredients, preferences } = req.body;
+    const dietaryPreferences = preferences.dietPreferences;
+    const allergies = preferences.allergyList;
+   
+    if (
+      !ingredients ||
+      !Array.isArray(ingredients) ||
+      ingredients.length === 0
+    ) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide an array of ingredients in the format: { "ingredients": ["ingredient1", "ingredient2"] }',
+        message:
+          'Please provide an array of ingredients in the format: { "ingredients": ["ingredient1", "ingredient2"] }',
       });
     }
 
     const ingredientString = ingredients.join(", ");
+    let userContent = `I have ${ingredientString}. Please give me a recipe you would recommend I make.`;
+    if (Array.isArray(dietaryPreferences) && dietaryPreferences.length > 0) {
+      userContent += ` Dietary preferences: ${dietaryPreferences.join(", ")}.`;
+    }
+    if (Array.isArray(allergies) && allergies.length > 0) {
+      userContent += ` Allergies: ${allergies.join(", ")}.`;
+    }
 
     // OpenAI Request
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // ✅ Replaced Hugging Face model with OpenAI
+      model: "gpt-4o-mini",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: `I have ${ingredientString}. Please give me a recipe you would recommend I make.` },
+        {
+          role: "user",
+          content: userContent,
+        },
       ],
       max_tokens: 1024,
     });
 
-    console.log("Raw AI Response:", response.choices[0].message.content);
 
-    // Extract only the JSON part using regex
     const jsonMatch = response.choices[0].message.content.match(/\{[\s\S]*\}/);
 
     if (!jsonMatch) {
       throw new Error("No valid JSON found in AI response");
     }
 
-    const cleanJSON = jsonMatch[0]; // Extracted JSON part
+    const cleanJSON = jsonMatch[0];
 
     let recipe;
     try {
-      recipe = json5.parse(cleanJSON); // More forgiving than JSON.parse()
+      recipe = json5.parse(cleanJSON);
     } catch (parseError) {
       console.error("JSON Parsing Error:", parseError);
       throw new Error("Failed to parse JSON from AI response");
@@ -143,7 +159,10 @@ export const generateRecipe = async (req, res) => {
     if (!Array.isArray(recipe.ingredients) || recipe.ingredients.length === 0) {
       throw new Error("Invalid ingredients format");
     }
-    if (!Array.isArray(recipe.instructions) || recipe.instructions.length === 0) {
+    if (
+      !Array.isArray(recipe.instructions) ||
+      recipe.instructions.length === 0
+    ) {
       throw new Error("Invalid instructions format");
     }
     if (typeof recipe.message !== "string") {
@@ -159,7 +178,169 @@ export const generateRecipe = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Failed to generate recipe",
-      error: process.env.NODE_ENV === "development" ? error.message : "Internal server error",
+      error:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Internal server error",
+    });
+  }
+};
+
+export const saveRecipe = async (req, res) => {
+  try {
+    const {
+      title,
+      prepTime,
+      cookTime,
+      servings,
+      ingredients,
+      instructions,
+      message,
+      isFavorite,
+      dietaryPreferences,
+      allergies,
+    } = req.body;
+
+    if (!req.user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized: No user found" });
+    }
+
+    const newRecipe = new Recipe({
+      title,
+      prepTime,
+      cookTime,
+      servings,
+      ingredients,
+      instructions,
+      message,
+      isFavorite,
+      dietaryPreferences,
+      allergies,
+      user: req.user.userId,
+    });
+
+    await newRecipe.save();
+    res.status(201).json({
+      success: true,
+      message: "Recipe saved successfully!",
+      recipe: newRecipe,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Error saving recipe",
+      error: error.message,
+    });
+  }
+};
+export const fetchRecipes = async (req, res) => {
+  try {
+    // Ensure user is authenticated
+    if (!req.user || !req.user.userId) {
+      return res
+        .status(401)
+        .json({ success: false, message: "User not authenticated" });
+    }
+
+    // Fetch recipes from database for the logged-in user
+    const recipes = await Recipe.find({ user: req.user.userId });
+
+    res.status(200).json({ success: true, recipes });
+  } catch (error) {
+    console.error("Error fetching recipes:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export const updateRecipe = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    if (!updatedRecipe) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Recipe not found" });
+    }
+
+    res.json(updatedRecipe);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, message: "Error updating recipe", error });
+  }
+};
+
+// Delete Recipe
+export const deleteRecipe = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
+
+    if (!deletedRecipe) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Recipe not found" });
+    }
+
+    res.json({ success: true, message: "Recipe deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, message: "Error deleting recipe", error });
+  }
+};
+
+export const updateDietaryPreferences = async (req, res) => {
+  try {
+    const { dietaryPreferences, allergies } = req.body;
+
+    if (!req.user || !req.user.userId) {
+      return res
+        .status(401)
+        .json({ success: false, message: "User not authenticated" });
+    }
+
+    // Find the user by their userId
+    const user = await User.findById(req.user.userId);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    // Update the dietaryPreferences and allergies only if new values are provided
+    if (dietaryPreferences !== undefined) {
+      user.dietaryPreferences = dietaryPreferences;
+    }
+    if (allergies !== undefined) {
+      user.allergies = allergies;
+    }
+    console.log(user);
+
+    // Save the updated user data
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Dietary preferences updated successfully!",
+      user, // Send back the updated user object
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error updating dietary preferences",
+      error: error.message,
     });
   }
 };

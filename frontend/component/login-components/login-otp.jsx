@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useRef, useEffect } from "react";
+import { API_URL } from "../../config";
 
 export default function LoginOtp({
   activeLoginModal,
@@ -51,7 +52,7 @@ export default function LoginOtp({
   async function handleResendOtp() {
     startOtpTimer();
     try {
-      const response = await fetch("http://localhost:5000/api/resendOtp", {
+      const response = await fetch(`${API_URL}/api/resendOtp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +92,7 @@ export default function LoginOtp({
 
     try {
       // Send request to verify OTP
-      const response = await fetch("http://localhost:5000/api/verify-otp", {
+      const response = await fetch(`${API_URL}/api/verify-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

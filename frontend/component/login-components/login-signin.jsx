@@ -1,5 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { API_URL } from "../../config";
+
 export default function LoginSignIN({
   activeLoginModal,
   setActiveLoginModal,
@@ -10,22 +12,25 @@ export default function LoginSignIN({
   submiting,
   loginData,
   setLoginData,
-  fetchUserProfile,  // Receive function as prop
-  setIsAuthenticated // Receive setIsAuthenticated as prop
+  fetchUserProfile,
+  setIsAuthenticated,
+  fetchRecipes
 }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
-
 
   function navigateSuccess() {
     setActiveLoginModal("successStep");
   }
+
   function togglePasswordVisibility() {
     setPasswordVisible((prev) => !prev);
   }
+
   function navigateForgetPassword() {
     setActiveLoginModal("forgetPasswordStep");
     setLoginData((prev) => ({ ...prev, password: "" }));
   }
+
   function handleInputChange(e, fieldName) {
     const value = e.target.value.trim();
     setLoginData((prev) => {
@@ -42,11 +47,12 @@ export default function LoginSignIN({
       setFeedbackMessage("");
     }, 2000);
   }
+
   async function handleLoginUser(e) {
     e.preventDefault();
     setSubmiting(true);
     try {
-      const response = await fetch("http://localhost:5000/api/loginuser", {
+      const response = await fetch(`${API_URL}/api/loginuser`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -59,26 +65,26 @@ export default function LoginSignIN({
       });
       const data = await response.json();
       if (data.success) {
-        console.log(data);
         setSubmiting(false);
         setLoginData({
           email: "",
           password: "",
         });
         setIsAuthenticated(true);
-        await fetchUserProfile();  
-
+        await fetchUserProfile();
+        await fetchRecipes();
         navigateSuccess();
       } else {
-        setSubmiting(false)
+        setSubmiting(false);
         showFeedbackMessage(data.message, false);
       }
     } catch (error) {
-      console.log(error);
-      setSubmiting(false)
+      console.log("error while logging in", error);
+      setSubmiting(false);
       showFeedbackMessage("Internal server Error", false);
     }
   }
+
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -164,4 +170,7 @@ LoginSignIN.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   setLoginData: PropTypes.func.isRequired,
+  fetchUserProfile: PropTypes.func.isRequired,
+  setIsAuthenticated: PropTypes.func.isRequired,
+  fetchRecipes: PropTypes.func.isRequired,
 };

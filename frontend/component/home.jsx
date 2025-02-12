@@ -1,33 +1,33 @@
 import AddIngriForm from "./form";
 import Introduction from "./introduction";
 import RecipeGenerationAnimation from "./animation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RecipeComponent from "./recipe";
 import "./components-styles/home.css";
-export default function Main() {
-  const [showAnimation, SetShowAnimation] = useState(false);
-  const [displayRecipe, setDisplayRecipe] = useState(false);
-  const [recommendedRecipe, setRecommendedRecipe] = useState({});
+import PropTypes from "prop-types";
 
+export default function Main({ setRecipes, userProfile }) {
+  const [showAnimation, SetShowAnimation] = useState(false);
+  const [recommendedRecipe, setRecommendedRecipe] = useState({});
   const [ingridients, setIngridients] = useState([]);
+  const [displayRecipe, setDisplayRecipe] = useState(false);
 
   function handleShowAnimation() {
     SetShowAnimation(true);
   }
+
   function handleHideAnimation() {
     SetShowAnimation(false);
   }
-  useEffect(() => {
-    console.log("Updated recommended recipe state:", recommendedRecipe);
-  }, [recommendedRecipe]); // This will trigger when recommendedRecipe is updated
 
   return (
     <>
       {displayRecipe && (
         <RecipeComponent
-          {...recommendedRecipe ?? {}}
+          {...(recommendedRecipe ?? {})}
           setDisplayRecipe={setDisplayRecipe}
           setIngridients={setIngridients}
+          setRecipes={setRecipes}
         />
       )}
       {!displayRecipe && (
@@ -47,9 +47,14 @@ export default function Main() {
             setDisplayRecipe={setDisplayRecipe}
             setRecommendedRecipe={setRecommendedRecipe}
             recommendedRecipe={recommendedRecipe}
+            userProfile={userProfile}
           />
         </main>
       )}
     </>
   );
 }
+
+Main.propTypes = {
+  setRecipes: PropTypes.func.isRequired,
+};

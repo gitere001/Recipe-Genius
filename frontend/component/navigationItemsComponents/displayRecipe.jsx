@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { X, BookmarkPlus } from "lucide-react";
-import "./components-styles/recipe.css";
-import { API_URL } from "../config";
+import { X } from "lucide-react";
+import "../components-styles/recipe.css";
+import { useEffect, useRef } from "react";
 
-const RecipeComponent = ({
+export default function DisplayRecipeComponent({
   title = "Untitled Recipe",
   prepTime = "0 minutes",
   cookTime = "0 minutes",
@@ -12,65 +12,24 @@ const RecipeComponent = ({
   instructions = [],
   message = "Enjoy your meal!",
   setDisplayRecipe,
-  setIngridients,
-  setRecipes,
-}) => {
-  // Function to handle saving the recipe
-  async function saveRecipe() {
-    try {
-      const response = await fetch(`${API_URL}/api/save-recipe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Ensures cookies are sent for authentication
-        body: JSON.stringify({
-          title,
-          prepTime,
-          cookTime,
-          servings,
-          ingredients,
-          instructions,
-          message,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("✅ Recipe saved successfully!");
-        setRecipes((prevRecipes) => [...prevRecipes, data.recipe]);
-      } else {
-        alert(`❌ Failed to save recipe: ${data.message}`);
-      }
-    } catch (error) {
-      console.error("❌ Error saving recipe:", error);
-      alert("❌ An error occurred while saving the recipe.");
+  setRecipeDetails,
+}) {
+  const topRef = useRef(null);
+  useEffect(() => {
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  }, [topRef]);
 
-    setDisplayRecipe(false);
-    setIngridients([]);
-  }
-
-  // Function to handle closing the recipe
   function onClose() {
     setDisplayRecipe(false);
-    setIngridients([]);
+    setRecipeDetails({});
   }
 
   return (
-    <div className="recipe-container">
-      <div className="recipe-header">
+    <div className="recipe-container displayRecipe">
+      <div className="recipe-header" ref={topRef}>
         <div className="action-buttons">
-          <button
-            onClick={saveRecipe}
-            className="action-btn save-btn"
-            aria-label="Save Recipe"
-          >
-            <BookmarkPlus className="icon" />
-            <span>Save Recipe</span>
-          </button>
-
           <button
             onClick={onClose}
             className="action-btn close-btn"
@@ -132,10 +91,10 @@ const RecipeComponent = ({
       </div>
     </div>
   );
-};
+}
 
 // PropTypes Validation
-RecipeComponent.propTypes = {
+DisplayRecipeComponent.propTypes = {
   title: PropTypes.string,
   prepTime: PropTypes.string,
   cookTime: PropTypes.string,
@@ -144,8 +103,5 @@ RecipeComponent.propTypes = {
   instructions: PropTypes.arrayOf(PropTypes.string),
   message: PropTypes.string,
   setDisplayRecipe: PropTypes.func.isRequired,
-  setIngridients: PropTypes.func.isRequired,
-  setRecipes: PropTypes.func.isRequired
+  setRecipeDetails: PropTypes.func.isRequired,
 };
-
-export default RecipeComponent;

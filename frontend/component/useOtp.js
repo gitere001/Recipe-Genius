@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 function handleOtpInput(e, setOtp) {
   setOtp(e.target.value);
 }
@@ -31,7 +32,7 @@ async function handleResendOtp(
   startOtpTimer(setRecievedOtp, setResendingOtp, setTimeLeft);
 
   try {
-    const response = await fetch("http://localhost:5000/api/resendOtp", {
+    const response = await fetch(`${API_URL}/api/resendOtp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +115,7 @@ async function handleOtpValidation(
   setSubmiting(true);
 
   try {
-    const response = await fetch("http://localhost:5000/api/update-email", {
+    const response = await fetch(`${API_URL}/api/update-email`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

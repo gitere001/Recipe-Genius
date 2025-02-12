@@ -4,16 +4,22 @@ import "./MyrecipesModal.css";
 import PropTypes from "prop-types";
 
 import RecipeCard from "./recipeCard";
+import DisplayRecipeComponent from "./displayRecipe";
+import { API_URL } from "../../config";
 
 export default function MyrecipesModal({
   recipes,
   setRecipes,
   setActiveModal,
 }) {
-  const [displayRecipe, setDisplayRecipe] = useState(false);
   const [activeButton, setActiveButton] = useState("all");
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchString, setSearchString] = useState("");
+  const [displayRecipe, setDisplayRecipe] = useState(false);
+  const [recipeDetails, setRecipeDetails] = useState({});
+
+
+
 
   useEffect(() => {
     if (activeButton === "all") {
@@ -24,7 +30,17 @@ export default function MyrecipesModal({
   }, [activeButton, recipes]);
 
   const recipeCardsElements = filteredRecipes.map((recipe) => {
-    return <RecipeCard key={recipe.id} setRecipes={setRecipes} {...recipe} />;
+    return (
+      <RecipeCard
+        key={recipe._id}
+        setRecipes={setRecipes}
+        {...recipe}
+        recipes={recipes}
+        setDisplayRecipe={setDisplayRecipe}
+        setRecipeDetails={setRecipeDetails}
+
+      />
+    );
   });
   useEffect(() => {
     if (searchString.trim().length > 0) {
@@ -47,10 +63,18 @@ export default function MyrecipesModal({
   function handleSearch(e) {
     setSearchString(e.target.value.trim());
   }
-  console.log(searchString);
+
 
   return (
     <div className="show-modal" id="myrecipes">
+      {displayRecipe && (
+        <DisplayRecipeComponent
+          {...recipeDetails}
+          setDisplayRecipe={setDisplayRecipe}
+          setRecipeDetails={setRecipeDetails}
+
+        />
+      )}
       {!displayRecipe && (
         <main className="main-display">
           <ArrowLeft
@@ -100,7 +124,7 @@ export default function MyrecipesModal({
               <div className="recipes-not-found">
                 <img
                   className="no-results-icon"
-                  src="http://localhost:5000/images/magnifying-glass.png"
+                  src={`${API_URL}/images/magnifying-glass.png`}
                   alt="search icon"
                 />
                 <p className="no-results-text">No matching recipes found.</p>
@@ -112,7 +136,7 @@ export default function MyrecipesModal({
               <div className="recipes-not-found">
                 <img
                   className="no-results-icon"
-                  src="http://localhost:5000/images/no-favorite.png"
+                  src={`${API_URL}/images/no-favorite.png`}
                   alt="favorite icon"
                 />
                 <p className="no-results-text">No favorite recipes found.</p>
@@ -124,7 +148,7 @@ export default function MyrecipesModal({
               <div className="recipes-not-found">
                 <img
                   className="no-results-icon"
-                  src="http://localhost:5000/images/no-recipe-found.png"
+                  src={`${API_URL}/images/no-recipe-found.png`}
                   alt="search icon"
                 />
                 <p className="no-results-text">
@@ -142,7 +166,7 @@ export default function MyrecipesModal({
   );
 }
 const recipePropType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   prepTime: PropTypes.string.isRequired,
   cookTime: PropTypes.string.isRequired,

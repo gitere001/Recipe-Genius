@@ -9,7 +9,7 @@ export default function Introduction(props) {
       <p>
         Add your ingredients, and let our AI chef create delicious meals! <br />
         <span className="hint">
-          (Tip: Add at least 4 ingredients for best results)
+          (Add at least 4 ingredients to proceed)
         </span>
       </p>
     </section>

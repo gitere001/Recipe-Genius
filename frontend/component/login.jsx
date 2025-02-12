@@ -26,8 +26,9 @@ export default function LoginModal({
   setHasFeedback,
   activeLoginModal,
   setActiveLoginModal,
-  fetchUserProfile,  // Receive function as prop
-  setIsAuthenticated // Receive setIsAuthenticated as prop
+  fetchUserProfile,
+  setIsAuthenticated,
+  fetchRecipes,
 }) {
   const [signupData, setSignupData] = useState({
     name: "",
@@ -126,8 +127,9 @@ export default function LoginModal({
         setHasFeedback={setHasFeedback}
         loginData={loginData}
         setLoginData={setLoginData}
-        fetchUserProfile={fetchUserProfile} // Pass fetchUserProfile
-        setIsAuthenticated={setIsAuthenticated} // Pass setIsAuthenticated
+        fetchUserProfile={fetchUserProfile}
+        setIsAuthenticated={setIsAuthenticated}
+        fetchRecipes={fetchRecipes}
       />
       <LoginForgetPassword
         activeLoginModal={activeLoginModal}
@@ -155,9 +157,8 @@ export default function LoginModal({
     </section>
   );
 }
+
 LoginModal.propTypes = {
-  showLoginModal: PropTypes.bool.isRequired,
-  setShowLoginModal: PropTypes.func.isRequired,
   submiting: PropTypes.bool.isRequired,
   setSubmiting: PropTypes.func.isRequired,
   feedbackSuccessful: PropTypes.bool.isRequired,
@@ -168,4 +169,8 @@ LoginModal.propTypes = {
   setHasFeedback: PropTypes.func.isRequired,
   activeLoginModal: PropTypes.string.isRequired,
   setActiveLoginModal: PropTypes.func.isRequired,
+  fetchUserProfile: PropTypes.func.isRequired,
+  setIsAuthenticated: PropTypes.func.isRequired,
+  fetchRecipes: PropTypes.func.isRequired,
+  setShowLoginModal: PropTypes.func.isRequired,
 };

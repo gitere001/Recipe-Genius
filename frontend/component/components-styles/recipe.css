@@ -33,7 +33,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-bottom: 15px;
+  margin-bottom: 13px;
 }
 
 .action-btn .icon {
@@ -63,7 +63,7 @@
 .recipe-title {
   font-size: 2.5rem;
   font-weight: 700;
-  margin: 1.5rem 0 1rem;
+  margin: 0 0 1rem;
   color: white;
 }
 

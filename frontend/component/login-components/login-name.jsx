@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { API_URL } from "../../config";
+
 export default function LoginName({
   activeLoginModal,
   setActiveLoginModal,
@@ -12,7 +13,6 @@ export default function LoginName({
   submiting,
 }) {
   function navigateSuccess() {
-
     setSignupData((prev) => ({
       ...prev,
       email: "",
@@ -22,10 +22,10 @@ export default function LoginName({
   }
 
   async function registerNewUser(e) {
-    e.preventDefault()
+    e.preventDefault();
     setSubmiting(true);
     try {
-      const response = await fetch("http://localhost:5000/api/registeruser", {
+      const response = await fetch(`${API_URL}/api/registeruser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,6 @@ export default function LoginName({
 
       if (data.success) {
         setSubmiting(false);
-
         navigateSuccess();
       } else {
         setSubmiting(false);
@@ -72,14 +71,11 @@ export default function LoginName({
       aria-labelledby="name-step-header"
     >
       <header id="name-step-header" className="text-center">
-        <h2 className="subtitle">What&apos;s your name?</h2>
+        <h2 className="subtitle">What&apos;s your first name or nickname?</h2>
         <p className="description">
-          We&apos;ll use this to personalize your experience and refer to you as
-          (Chef [Your Name]);
+          We&apos;ll use this to personalize your experience (e.g., Chef James).
           <br />
-          <span className="hint">
-            (Tip: You can always change your name later)
-          </span>
+          <span className="hint">(Tip: You can always change it later)</span>
         </p>
       </header>
 
@@ -121,7 +117,12 @@ LoginName.propTypes = {
   signupData: PropTypes.shape({
     email: PropTypes.string.isRequired,
     password: PropTypes.string,
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
   }).isRequired,
   setSignupData: PropTypes.func.isRequired,
+  setSubmiting: PropTypes.func.isRequired,
+  setFeedbackSuccessful: PropTypes.func.isRequired,
+  setFeedbackMessage: PropTypes.func.isRequired,
+  setHasFeedback: PropTypes.func.isRequired,
+  submiting: PropTypes.bool.isRequired,
 };

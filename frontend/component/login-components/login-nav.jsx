@@ -13,6 +13,8 @@ export default function LoginNav({ activeLoginModal, setActiveLoginModal }) {
       setActiveLoginModal("signinStep");
     } else if (activeLoginModal === "resetPasswordStep") {
       setActiveLoginModal("signinStep");
+    } else if (activeLoginModal === "otpStep") {
+      setActiveLoginModal("emailStep")
     }
   }
   return (

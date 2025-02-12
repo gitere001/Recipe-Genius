@@ -86,7 +86,7 @@ const verifyValidOtp = async (req, res) => {
     if (!valid) {
       return res.status(400).json({ success: false, message: reason });
     }
-    user.email = email
+    user.email = email;
 
     await user.save();
 
@@ -103,7 +103,9 @@ const getUserProfile = async (req, res) => {
   const userId = req.user.userId; // Extract from authentication middleware
 
   try {
-    const user = await User.findById(userId).select("name email"); // Retrieve only name & email
+    const user = await User.findById(userId).select(
+      "name email dietaryPreferences allergies"
+    );
 
     if (!user) {
       return res
