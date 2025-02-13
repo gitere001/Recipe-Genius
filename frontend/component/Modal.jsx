@@ -31,7 +31,15 @@ export default function Modal({
   recipes,
   setRecipes,
 }) {
-  /*otp handling section*/
+  const dietaryPreferencesRef = useRef([]);
+  const allergiesRef = useRef([]);
+  useEffect(() => {
+    if (activeModal === "dietarypreferences") {
+      dietaryPreferencesRef.current = [...userProfile.dietaryPreferences];
+      allergiesRef.current = [...userProfile.allergies];
+    }
+  }, [activeModal]);
+
   const {
     handleOtpInput,
     startOtpTimer,
@@ -147,6 +155,13 @@ export default function Modal({
     }
 
     const isCloseIcon = clickedElement.closest(".menu-modal-cross");
+    if (isCloseIcon) {
+      setUserProfile((prev) => ({
+        ...prev,
+        dietaryPreferences: dietaryPreferencesRef.current,
+        allergies: allergiesRef.current,
+      }));
+    }
     if (isCloseIcon && isCloseIcon.closest(".menu-modal-myaccount")) {
       hanleUserCancellation();
     }
@@ -212,7 +227,6 @@ export default function Modal({
     dietaryPreferences.forEach((checkbox) => {
       dietaryPreferencesData.push(checkbox.value);
     });
-
 
     const allergies = document.querySelectorAll(
       'input[name="allergy"]:checked'
@@ -286,21 +300,18 @@ export default function Modal({
     setSubmiting(true);
 
     try {
-      const response = await fetch(
-        `${API_URL}/api/change-password`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // Ensures cookies (tokens) are sent
-          body: JSON.stringify({
-            currentPassword,
-            newPassword,
-            confirmPassword,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/change-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Ensures cookies (tokens) are sent
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          confirmPassword,
+        }),
+      });
 
       const data = await response.json();
 
@@ -528,11 +539,14 @@ export default function Modal({
         />
         <h3 className="menu-modal-title">
           Dietary Preferences & Allergies
-          <X className="menu-modal-cross" onClick={handleCloseModal} />
+          <X
+            className="menu-modal-cross"
+            onClick={(e) => handleCloseModal(e)}
+          />
         </h3>
         <Ingredients
-        userAllergies={userProfile.allergies}
-        userDietaryPreferences={userProfile.dietaryPreferences}
+          userAllergies={userProfile.allergies}
+          userDietaryPreferences={userProfile.dietaryPreferences}
         />
         <button
           onClick={handleDietaryUpdate}

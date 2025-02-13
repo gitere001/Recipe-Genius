@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 export default function LoginPassword({
   activeLoginModal,
   setActiveLoginModal,
@@ -6,8 +7,13 @@ export default function LoginPassword({
   signupData,
   setSignupData,
 }) {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  function togglePasswordVisibility() {
+    setPasswordVisible((prev) => !prev);
+  }
+
   function navigateName(e) {
-    e.preventDefault()
+    e.preventDefault();
     setActiveLoginModal("nameStep");
   }
 
@@ -29,16 +35,19 @@ export default function LoginPassword({
             onChange={(e) =>
               setSignupData((prev) => ({ ...prev, password: e.target.value }))
             }
-            type="password"
+            type={passwordVisible ? "text" : "password"}
             id="passwordInput"
             value={signupData.password}
             placeholder="Enter your password"
             aria-label="Password input"
           />
           <i
-            className="fa-regular fa-eye right toggle-password"
-            id="passwordToggleIcon"
-            aria-label="Toggle password visibility"
+            onClick={togglePasswordVisibility}
+            className={`fa-regular ${
+              passwordVisible ? "fa-eye-slash" : "fa-eye"
+            } right`}
+            id="loginPasswordToggleIcon"
+            aria-label="Toggle signup password visibility"
           ></i>
         </div>
         <p className="helper-text">
