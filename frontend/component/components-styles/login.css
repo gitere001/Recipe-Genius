@@ -8,7 +8,8 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("/images/landing-background.webp");
+    url("https://recipegenius-one.vercel.app/images/landing-background.webp");
+
   background-size: cover;
   background-position: center;
   z-index: 100;
