@@ -16,9 +16,9 @@ _Experience Recipe Genius in action!_
 
 <table>
   <tr>
-    <td><img src="./public/images/recipe-genius-login-page.png" alt="Landing Page" width="300"/></td>
-    <td><img src="./public/images/recipe-genius-home-page-mobile.png" alt="Home Mobile View" width="300"/></td>
-    <td><img src="./public/images/recipe-genius-home-page.png" alt="Home Desktop View" width="300"/></td>
+    <td><img src="frontend/public/images/recipe-genius-login-page.png" alt="Landing Page" width="300"/></td>
+    <td><img src="frontend/public/images/recipe-genius-home-page-mobile.png" alt="Home Mobile View" width="300"/></td>
+    <td><img src="frontend/public/images/recipe-genius-home-page.png" alt="Home Desktop View" width="300"/></td>
   </tr>
   <tr>
     <td align="center">Landing Page</td>
