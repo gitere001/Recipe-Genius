@@ -4,7 +4,7 @@ Welcome to **Recipe Genius** — your go-to AI-powered recipe assistant that tra
 
 ---
 
-## 🌐 [See Live](#)
+## 🌐 [See Live](https://recipegenius-one.vercel.app/)
 
 _Experience Recipe Genius in action!_
 
