@@ -694,7 +694,7 @@ export default function Modal({
         </p>
         <div className="delete-account">
           <p className="delete-account-description">
-           Thi action cannot be undone and you will lose:
+           This action cannot be undone and you will lose:
           </p>
           <span>All your saved recipes</span>
           <span>Your favorite recipes collection</span>
