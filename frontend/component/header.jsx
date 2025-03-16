@@ -12,7 +12,6 @@ export default function Header(props) {
   const windowWidth = useWindowWidth();
   const isMobile = windowWidth <= 768;
 
-
   useEffect(() => {
     if (!isMobile && isOpen) {
       // Prevent resetting `isOpen` for desktop on resize
@@ -24,14 +23,13 @@ export default function Header(props) {
     setIsOpen((prevState) => !prevState);
   }
 
-
   function onItemClick(item) {
-    setIsOpen(false)
-    props.setActiveModal(item)
+    setIsOpen(false);
+    props.setActiveModal(item);
     props.setShowOverlay(item !== "myrecipes");
   }
   function hideMenu() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   return (
@@ -40,7 +38,11 @@ export default function Header(props) {
         <MobileMenu isOpen={isOpen} onItemClick={onItemClick} />
       )}
       {isOpen && !isMobile && (
-        <DesktopMenu isOpen={isOpen} onItemClick={onItemClick} hideMenu={hideMenu}/>
+        <DesktopMenu
+          isOpen={isOpen}
+          onItemClick={onItemClick}
+          hideMenu={hideMenu}
+        />
       )}
       <div className="home-logo">
         <ChefHat className="chef-hat" />
@@ -48,16 +50,19 @@ export default function Header(props) {
       </div>
       {!isMobile && (
         <>
-          <a onClick={() => onItemClick("dietarypreferences")} className="dietary-nav nav-item">
+          <a
+            onClick={() => onItemClick("dietarypreferences")}
+            className="dietary-nav nav-item"
+          >
             <UtensilsCrossed className="w-5 h-5" />
             Dietary Preferences
           </a>
-          <a onClick={() => onItemClick("myrecipes")} className="nav-item" >
+          <a onClick={() => onItemClick("myrecipes")} className="nav-item">
             <BookOpen className="w-5 h-5" />
             My Recipes
           </a>
           <span onClick={handleToggle} className="profiles">
-            J
+          {props.chefName?.charAt(0).toUpperCase()}
           </span>
         </>
       )}
@@ -76,5 +81,6 @@ export default function Header(props) {
 
 Header.propTypes = {
   setActiveModal: PropTypes.func.isRequired,
-  setShowOverlay: PropTypes.func.isRequired
+  setShowOverlay: PropTypes.func.isRequired,
+  chefName: PropTypes.string.isRequired
 };

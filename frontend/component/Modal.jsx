@@ -40,6 +40,9 @@ export default function Modal({
     }
   }, [activeModal]);
 
+  const favoriteCount = recipes.filter((recipe) => recipe.isFavorite).length;
+
+
   const {
     handleOtpInput,
     startOtpTimer,
@@ -602,14 +605,14 @@ export default function Modal({
             <div className="saved-recipes">
               <div className="stats-number">
                 <BookOpen className="w-3 h-3" />
-                <span className="total-saved">12</span>
+                <span className="total-saved">{recipes.length}</span>
               </div>
               <span>Recipes Saved</span>
             </div>
             <div className="favourite-recipes">
               <div className="stats-number">
                 <Heart className="w-3 h3" />
-                <span className="total-favorites">5</span>
+                <span className="total-favorites">{favoriteCount}</span>
               </div>
               <span>Favorites</span>
             </div>
