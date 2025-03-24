@@ -12,7 +12,7 @@ export default function LoginEmail({
   setHasFeedback,
 }) {
   function navigateOtp() {
-    setActiveLoginModal("otpStep");
+    setActiveLoginModal("passwordStep");
   }
 
   async function checkExistingEmail(e) {
