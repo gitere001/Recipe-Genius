@@ -117,7 +117,7 @@ To get started locally:
 Have questions or feedback? Feel free to reach out:
 
 - **Website**: [jamesgiteredev.site](https://jamesgiteredev.site)
-- **Email**: [contact@jamesgiteredev.site](mailto:contact@jamesgiteredev.site)
+- **Email**: [gitere.dev@gmail.com](gitere.dev@gmail.com)
 
 ---
 
